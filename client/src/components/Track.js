@@ -11,9 +11,9 @@ function Track(props) {
 		<div className="Track">
 			<div className="TrackImage">
 				{ props.data.track.album.images[0] ?
-                        <img src={props.data.track.album.images[0].url} alt="Track Icon" height="70px" width="70px" /> :
-                        <img src={spotifyLogo} alt="Spotify Logo" height="70px" width="70px" />
-                }
+                        		<img src={props.data.track.album.images[0].url} alt="Track Icon" height="70px" width="70px" /> :
+                        		<img src={spotifyLogo} alt="Spotify Logo" height="70px" width="70px" />
+                		}
 			</div>
 			<div className="TrackName">
 				<h3>{props.data.track.name}</h3>

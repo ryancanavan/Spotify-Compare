@@ -1,4 +1,5 @@
 import React from 'react';
+import spotifyLogo from '../Spotify_Icon_Green.png';
 
 function Playlist(props) {
 	return (
@@ -6,7 +7,10 @@ function Playlist(props) {
 			<a onClick={props.onClick}>
 				<div className="Playlist">
 						<div className="PlaylistImage">
-							<img src={props.data.images[0].url} alt="Playlist Icon" height="100px" width="100px" />
+							{ props.data.images[0] ?
+                        		<img src={props.data.images[0].url} alt="Track Icon" height="100px" width="100px" /> :
+                        		<img src={spotifyLogo} alt="Spotify Logo" height="100px" width="100px" />
+                			}
 						</div>
 						<div className="PlaylistName">
 							<h2>{props.data.name}</h2>

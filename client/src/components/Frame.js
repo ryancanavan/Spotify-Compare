@@ -11,6 +11,7 @@ class Frame extends Component {
             playlistSelect: false,
             playlistTracks: [],
             playlistName: null,
+            foreignPlaylist: false,
         };
         
         this.handleChange = this.handleChange.bind(this);
@@ -49,6 +50,32 @@ class Frame extends Component {
             });
         });
     }
+
+    getForeignPlaylist(offset) {
+        let params = this.props.params;
+        fetch('https://api.spotify.com/v1/users/' + this.state.username + '/playlists?offset=' + offset, {
+            headers: {
+                'Authorization': 'Bearer ' + params.access_token,
+                'Content-Type': 'application/json'
+            }
+        }).then((res) => {
+            res.json().then((data) => {
+                if(data.total > (data.offset + data.limit)) {
+                    let newPlaylists = this.state.playlists.concat(data.items);
+                    this.setState({
+                        playlists: newPlaylists
+                    });
+                    this.getForeignPlaylist((data.offset + data.limit));
+                } else {
+                    let newPlaylists = this.state.playlists.concat(data.items);
+                    this.setState({
+                        playlists: newPlaylists,
+                        foreignPlaylist: true
+                    });
+                }
+            });
+        });
+    }
     
     resetPlaylistSelect() {
         this.setState({
@@ -58,13 +85,23 @@ class Frame extends Component {
         });
     }
 
+    resetUserPlaylists() {
+        this.setState({
+            playlists: this.props.playlists,
+            foreignPlaylist: false
+        });
+    }
+
     handleChange(event) {
         this.setState({username: event.target.value});
     }
 
     handleSubmit(event) {
-        this.props.changeUser(this.state.username);
-        event.preventDefault();        
+        event.preventDefault();
+        this.setState({
+            playlists: []
+        });
+        this.getForeignPlaylist(0);
     }
 
 	render() {
@@ -76,13 +113,21 @@ class Frame extends Component {
                         <TrackList data={this.state.playlistTracks} playlistName={this.state.playlistName} onClick={() => this.resetPlaylistSelect()} />
                     ) : (
                         <div>
-                            <form onSubmit={this.handleSubmit}>
-                                <textarea value={this.state.value} onChange={this.handleChange} />
-                                <input type="submit" value="&#x1F50E;" />
-                            </form>
+                            { this.state.foreignPlaylist ? (
+                                <button className="ResetButton" onClick={() => this.resetUserPlaylists()}><b>Your Playlists</b></button>
+                            ) : (
+                                <form onSubmit={this.handleSubmit}>
+                                    <textarea placeholder="Enter a Username" value={this.state.value} onChange={this.handleChange} />
+                                    <input type="submit" value="&#x1F50E;" />
+                                </form>
+                            )}
                             {this.state.playlists.map((playlist, index) =>
                                 <Playlist key={index} data={playlist} onClick={() => this.playlistSelect(playlist.tracks.href, playlist.name, 0)} />
                             )}
+                            { this.state.playlists.length === 0 ?
+                                <h3>This user has no public playlists</h3> :
+                                null
+                            }
                         </div>
                     )}
                 </div>
