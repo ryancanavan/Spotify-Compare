@@ -1,0 +1,1 @@
+This is project using a [React](https://facebook.github.io/react/) front-end that will allow users to make calls to the Spotify API to compare their Spotify playlists.
