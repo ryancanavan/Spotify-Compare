@@ -1,19 +1,19 @@
 import React, { Component } from 'react';
-import Playlist from './Playlist';
+import Frame from './Frame';
 
 class Welcome extends Component {
 	constructor() {
 		super();
 		this.state = {
-			playlists: [],
+            playlists: [],
 		};
 	}
 
-    componentDidMount() {
-        this.getUsername();
+    componentWillMount() {
+        this.getPlaylists();
     }
 
-	getUsername() {
+	getPlaylists() {
         let params = this.props.params;
         fetch('https://api.spotify.com/v1/me/playlists', {
             headers: {
@@ -29,13 +29,33 @@ class Welcome extends Component {
         });
     }
 
+    getForeignPlaylists = (dataFromChild) => {
+        let user = dataFromChild;
+        let params = this.props.params;
+        fetch('https://api.spotify.com/v1/users/' + user + '/playlists', {
+            headers: {
+                'Authorization': 'Bearer ' + params.access_token,
+                'Content-Type': 'application/json'
+            }
+        }).then((res) => {
+            res.json().then((data) => {
+                this.setState({
+                    playlists: data.items
+                });
+            });
+        });
+    }
+
+    comparePlaylists() {
+
+    }
+
 	render() {
 		return (
 			<div className="Welcome">
-				<h2>Choose a Playlist</h2>
-                {this.state.playlists.map((playlist, index) =>
-                    <Playlist key={index} info={playlist} />
-                )}
+                <button className="CompareButton" onClick={this.comparePlaylists()}><b>Compare Playlists</b></button>
+                <Frame side="Left" playlists={this.state.playlists} params={this.props.params} changeUser={this.getForeignPlaylists} />
+                <Frame side="Right" playlists={this.state.playlists} params={this.props.params} changeUser={() => this.getForeignPlaylists} />
 			</div>
 		)
 	}

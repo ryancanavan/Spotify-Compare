@@ -3,6 +3,43 @@
 	color: #fff;
 }
 
+a {color:#fff; text-decoration: none;}
+a:visited {color:#fff;}
+a:hover {color:#fff;}
+a:active {color:#fff;}
+
+button {
+	border-radius: 30px;
+	background-color: #1DB954;
+	color: #fff;
+	border: none;
+	padding: 0;
+}
+
+input:focus {outline-width: 0;}
+input {
+	border: none;
+	margin-left: 10px;
+	border-radius: 30px;
+	height: 40px;
+	width: 40px;
+	font-size: 20px;
+	position: relative;
+	top: 35%;
+	transform: translateY(-35%);
+}
+
+textarea:focus {outline-width: 0;}
+textarea {
+	padding-left: 15px;
+	padding-top: -5px;
+	border: none;
+	border-radius: 30px;
+	height: 40px;
+	width: 275px;
+	font-size: 25px;
+}
+
 hr {
 	border-color: #191414;
 }
@@ -18,6 +55,30 @@ hr {
 	padding-top: 10px;
 	padding-bottom: 10px;
 	vertical-align: -40px;
+}
+
+.CompareButton {
+	margin-bottom: 20px;
+	height: 80px;
+	width: 325px;
+	font-size: 30px;
+}
+
+.LeftFrame {
+	width: 49.9%;
+	float: left;
+	border-right: 1px solid #000;
+}
+
+.RightFrame {
+	width: 50%;
+	float: right;
+}
+
+.ResetButton {
+	height: 50px;
+	width: 200px;
+	font-size: 15px;
 }
 
 .Playlist {
@@ -41,4 +102,30 @@ hr {
 	position: relative;
 	top: 50%;
 	transform: translateY(-50%);
+}
+
+.Track {
+	width: 350px;
+	height: 90px;
+	margin: 0 auto;
+	box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+	background-color: #3c3c3c;
+	border-bottom: 1px solid #000;
+}
+
+.TrackImage {
+	padding-top: 10px;
+	width: 25%;
+	float: left;
+}
+
+.TrackName {
+	margin-left: 10px;
+	position: relative;
+	top: 50%;
+	transform: translateY(-50%);
+}
+
+.ArtistName {
+	margin-top: -18px;
 }
