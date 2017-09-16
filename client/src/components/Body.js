@@ -39,13 +39,16 @@ class Body extends Component {
 
 	render() {
 		let params = this.getHashParams();
+		if(params.error){
+			return <Login error={params.error} />
+		}
 		let loggedIn = this.state.loggedIn;
         if(loggedIn === false)
 			this.loggedInCheck(params);
 		if(loggedIn){
 			return <Welcome params={params} />;
 		}
-		return <Login />;
+		return <Login error="" />;
 	}
 }
 
