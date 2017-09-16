@@ -5,9 +5,10 @@
 
 a {color:#fff; text-decoration:none;}
 a:visited {color:#fff;}
-a:hover {color:#fff; cursor:pointer}
+a:hover {color:#fff; cursor:pointer;}
 a:active {color:#fff;}
 
+button:hover {cursor:pointer;}
 button {
 	border-radius: 30px;
 	background-color: #1DB954;

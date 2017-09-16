@@ -6,15 +6,15 @@ function Playlist(props) {
 		<div>
 			<a onClick={props.onClick}>
 				<div className="Playlist">
-						<div className="PlaylistImage">
-							{ props.data.images[0] ?
-                        		<img src={props.data.images[0].url} alt="Track Icon" height="100px" width="100px" /> :
-                        		<img src={spotifyLogo} alt="Spotify Logo" height="100px" width="100px" />
-                			}
-						</div>
-						<div className="PlaylistName">
-							<h2>{props.data.name}</h2>
-						</div>
+					<div className="PlaylistImage">
+						{ props.data.images[0] ?
+							<img src={props.data.images[0].url} alt="Track Icon" height="100px" width="100px" /> :
+							<img src={spotifyLogo} alt="Spotify Logo" height="100px" width="100px" />
+						}
+					</div>
+					<div className="PlaylistName">
+						<h2>{props.data.name}</h2>
+					</div>
 				</div>
 			</a>
 		</div>

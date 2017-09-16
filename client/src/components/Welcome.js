@@ -22,17 +22,12 @@ class Welcome extends Component {
             }
         }).then((res) => {
             res.json().then((data) => {
+                let newPlaylists = this.state.playlists.concat(data.items);
+                this.setState({
+                    playlists: newPlaylists
+                });
                 if(data.total > (data.offset + data.limit)) {
-                    let newPlaylists = this.state.playlists.concat(data.items);
-                    this.setState({
-                        playlists: newPlaylists
-                    });
                     this.getPlaylists((data.offset + data.limit));
-                } else {
-                    let newPlaylists = this.state.playlists.concat(data.items);
-                    this.setState({
-                        playlists: newPlaylists
-                    });
                 }
             });
         });

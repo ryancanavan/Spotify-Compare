@@ -33,19 +33,14 @@ class Frame extends Component {
             }
         }).then((res) => {
             res.json().then((data) => {
+                let newTracks = this.state.playlistTracks.concat(data.items);
+                this.setState({
+                    playlistSelect: true,
+                    playlistTracks: newTracks,
+                    playlistName: playlistName
+                });
                 if(data.total > (data.offset + data.limit)) {
-                    let newTracks = this.state.playlistTracks.concat(data.items);
-                    this.setState({
-                        playlistTracks: newTracks
-                    });
                     this.playlistSelect(tracksUrl, playlistName, (data.offset + data.limit));
-                } else {
-                    let newTracks = this.state.playlistTracks.concat(data.items);
-                    this.setState({
-                        playlistSelect: true,
-                        playlistTracks: newTracks,
-                        playlistName: playlistName
-                    });
                 }
             });
         });
@@ -60,18 +55,13 @@ class Frame extends Component {
             }
         }).then((res) => {
             res.json().then((data) => {
+                let newPlaylists = this.state.playlists.concat(data.items);
+                this.setState({
+                    foreignPlaylist: true,
+                    playlists: newPlaylists
+                });
                 if(data.total > (data.offset + data.limit)) {
-                    let newPlaylists = this.state.playlists.concat(data.items);
-                    this.setState({
-                        playlists: newPlaylists
-                    });
                     this.getForeignPlaylist((data.offset + data.limit));
-                } else {
-                    let newPlaylists = this.state.playlists.concat(data.items);
-                    this.setState({
-                        playlists: newPlaylists,
-                        foreignPlaylist: true
-                    });
                 }
             });
         });
@@ -92,8 +82,18 @@ class Frame extends Component {
         });
     }
 
+    disableNewline(event) {
+        if (event.keyCode === 13) {
+            event.preventDefault();
+        }
+    }
+
     handleChange(event) {
-        this.setState({username: event.target.value});
+        if (event.keyCode === 13) {
+            this.handleSubmit(event);
+        } else {
+            this.setState({username: event.target.value});
+        }
     }
 
     handleSubmit(event) {
@@ -117,16 +117,15 @@ class Frame extends Component {
                                 <button className="ResetButton" onClick={() => this.resetUserPlaylists()}><b>Your Playlists</b></button>
                             ) : (
                                 <form onSubmit={this.handleSubmit}>
-                                    <textarea placeholder="Enter a Username" value={this.state.value} onChange={this.handleChange} />
+                                    <textarea placeholder="Enter a Username" value={this.state.value} onKeyDown={this.disableNewline} onKeyUp={this.handleChange} />
                                     <input type="submit" value="&#x1F50E;" />
                                 </form>
                             )}
-                            {this.state.playlists.map((playlist, index) =>
-                                <Playlist key={index} data={playlist} onClick={() => this.playlistSelect(playlist.tracks.href, playlist.name, 0)} />
-                            )}
                             { this.state.playlists.length === 0 ?
                                 <h3>This user has no public playlists</h3> :
-                                null
+                                this.state.playlists.map((playlist, index) =>
+                                    <Playlist key={index} data={playlist} onClick={() => this.playlistSelect(playlist.tracks.href, playlist.name, 0)} />
+                                )
                             }
                         </div>
                     )}
