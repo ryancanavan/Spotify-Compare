@@ -3,12 +3,22 @@ import spotifyLogo from '../Spotify_Icon_Green.png';
 
 function Track(props) {
 	var artists = "";
+	var common = false;
 	props.data.track.artists.map((track) =>
         artists += track.name + ", "
 	);
 	artists = artists.substring(0, artists.length - 2);
+	for(let i = 0; i < props.commonTracks.length; i++){
+		if(props.data.track.id === props.commonTracks[i].track.id){
+			common = true;
+		}
+	}
+	let style;
+	if(common){
+		style = { backgroundColor: "#1DB954", };
+	}
 	return (
-		<div className="Track">
+		<div className="Track" style={style}>
 			<div className="TrackImage">
 				{ props.data.track.album.images[0] ?
                         		<img src={props.data.track.album.images[0].url} alt="Track Icon" height="70px" width="70px" /> :

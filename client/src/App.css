@@ -9,6 +9,7 @@ a:hover {color:#fff; cursor:pointer;}
 a:active {color:#fff;}
 
 button:hover {cursor:pointer;}
+button:focus {outline-width: 0;}
 button {
 	border-radius: 30px;
 	background-color: #1DB954;
@@ -34,7 +35,7 @@ textarea:focus {outline-width: 0;}
 textarea {
 	resize: none;
 	padding-left: 15px;
-	padding-top: -5px;
+	padding-top: 10px;
 	border: none;
 	border-radius: 30px;
 	height: 40px;
