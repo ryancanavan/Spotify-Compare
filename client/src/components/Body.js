@@ -7,7 +7,17 @@ class Body extends Component {
 		super();
 		this.state = {
 			loggedIn: false,
+			params: null,
 		};
+	}
+
+	componentWillMount() {
+		let params = this.getHashParams();
+		this.setState({
+			params: params
+		});
+		if(this.state.loggedIn === false)
+			this.loggedInCheck(params);
 	}
 
 	getHashParams() {
@@ -37,16 +47,12 @@ class Body extends Component {
 		return JSON.stringify(obj) === JSON.stringify({});
 	}
 
-	render() {
-		let params = this.getHashParams();
-		if(params.error){
-			return <Login error={params.error} />
-		}
-		let loggedIn = this.state.loggedIn;
-        if(loggedIn === false)
-			this.loggedInCheck(params);
-		if(loggedIn){
-			return <Welcome params={params} />;
+	render() {		
+		if(this.state.params.error){
+			return <Login error={this.state.params.error} />
+		}        
+		if(this.state.loggedIn){
+			return <Welcome params={this.state.params} />;
 		}
 		return <Login error="" />;
 	}

@@ -2,17 +2,20 @@ import React from 'react';
 import spotifyLogo from '../Spotify_Icon_Green.png';
 
 function Track(props) {
-	var artists = "";
 	var common = false;
-	props.data.track.artists.map((track) =>
-        artists += track.name + ", "
-	);
-	artists = artists.substring(0, artists.length - 2);
 	for(let i = 0; i < props.commonTracks.length; i++){
 		if(props.data.track.id === props.commonTracks[i].track.id){
 			common = true;
 		}
 	}
+	if(props.commonTracks.length !== 0 && props.filter && !common) {
+		return null;
+	}
+	var artists = "";	
+	props.data.track.artists.map((track) =>
+        artists += track.name + ", "
+	);
+	artists = artists.substring(0, artists.length - 2);
 	let style;
 	if(common){
 		style = { backgroundColor: "#1DB954", };

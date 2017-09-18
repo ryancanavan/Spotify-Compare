@@ -25,67 +25,31 @@ class TrackList extends Component {
 	}
 
 	orderChange(event) {
+		let newPlaylist;
 		switch(event.target.value) {
 			case "oldest":
-				let oldestPlaylist = this.state.playlist.sort(function(a, b){
-					var dateA = new Date(a.added_at);
-					var dateB = new Date(b.added_at);
-					return dateA - dateB;
-				});
-				this.setState({
-					playlist: oldestPlaylist
-				});
+				newPlaylist = this.state.playlist.sort(dateSort);
 				break;
 			case "newest":
-				let newestPlaylist = this.state.playlist.sort(function(a, b){
-					var dateA = new Date(a.added_at);
-					var dateB = new Date(b.added_at);
-					return dateA - dateB;
-				});
-				newestPlaylist.reverse();
-				this.setState({
-					playlist: newestPlaylist
-				});
+				newPlaylist = this.state.playlist.sort(dateSort);
+				newPlaylist.reverse();
 				break;
 			case "alphabetical":
-				let alphabeticalPlaylist = this.state.playlist.sort(function(a, b){
-					var nameA = a.track.name.toUpperCase();
-					var nameB = b.track.name.toUpperCase();
-					if(nameA < nameB)
-						return -1;
-					if(nameB < nameA)
-						return 1;
-					return 0;
-				});
-				this.setState({
-					playlist: alphabeticalPlaylist
-				});
+				newPlaylist = this.state.playlist.sort(alphabeticalSort);
 				break;
 			case "reverseAlphabetical":
-				let reverseAlphabeticalPlaylist = this.state.playlist.sort(function(a, b){
-					var nameA = a.track.name.toUpperCase();
-					var nameB = b.track.name.toUpperCase();
-					if(nameA < nameB)
-						return -1;
-					if(nameB < nameA)
-						return 1;
-					return 0;
-				});
-				reverseAlphabeticalPlaylist.reverse();
-				this.setState({
-					playlist: reverseAlphabeticalPlaylist
-				});
+				newPlaylist = this.state.playlist.sort(alphabeticalSort);
+				newPlaylist.reverse();
 				break;
 			default:
 				break;
 		}
+		this.setState({
+			playlist: newPlaylist
+		});
 	}
 
 	render() {
-		var tracks = this.state.playlist;
-		if(this.props.commonTracks.length !== 0 && this.state.filter){
-			tracks = this.props.commonTracks;
-		}
 		return (
 			<div className="TrackList">
 				<button className="ResetButton" onClick={this.props.onClick}><b>Choose Different Playlist</b></button>
@@ -110,8 +74,8 @@ class TrackList extends Component {
 						</label>
 					</form>
 				</div>
-				{tracks.map((track, index) =>
-					<Track key={index} data={track} commonTracks={this.props.commonTracks} />
+				{this.state.playlist.map((track, index) =>
+					<Track key={index} data={track} commonTracks={this.props.commonTracks} filter={this.state.filter} />
 				)}
 			</div>
 		)
@@ -119,3 +83,19 @@ class TrackList extends Component {
 }
 
 export default TrackList;
+
+function dateSort(a, b){
+	var dateA = new Date(a.added_at);
+	var dateB = new Date(b.added_at);
+	return dateA - dateB;
+}
+
+function alphabeticalSort(a, b){
+	var nameA = a.track.name.toUpperCase();
+	var nameB = b.track.name.toUpperCase();
+	if(nameA < nameB)
+		return -1;
+	if(nameB < nameA)
+		return 1;
+	return 0;
+}
