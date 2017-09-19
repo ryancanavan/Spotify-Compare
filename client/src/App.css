@@ -41,11 +41,13 @@ textarea {
 	height: 40px;
 	width: 275px;
 	font-size: 25px;
+	font-family: sans-serif;
 }
 
 select:focus {outline-width: 0;}
 select {
-	padding-left: 0px;
+	margin-top: 2px;
+	height: 20px;
 	border-radius: 30px;
 }
 
@@ -67,6 +69,7 @@ hr {
 }
 
 .CompareButton {
+	border-radius: 50px;
 	margin-bottom: 20px;
 	height: 80px;
 	width: 325px;
@@ -91,13 +94,12 @@ hr {
 }
 
 .Sort {
-	width: 50%;
-	padding-left: 50px;
+	padding-left: 315px;
 	float: left;
 }
 
 .Filter {
-	padding-right: 160px;
+	padding-right: 275px;
 }
 
 .Playlist {
@@ -155,6 +157,7 @@ hr {
 .switch {
 	position: relative;
 	display: inline-block;
+	vertical-align: middle;
 	width: 45px;
 	height: 25px;
 }

@@ -67,7 +67,7 @@ class TrackList extends Component {
 				</div>
 				<div className="Filter">
 					<form>
-						<label style={{float: "left"}}>Filter : </label>
+						<label>Filter : </label>
 						<label className="switch">
 							<input type="checkbox" checked={this.state.filter} onChange={this.filterChange.bind(this)} />
 							<span className="slider round"></span>
