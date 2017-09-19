@@ -95,7 +95,7 @@ hr {
 .LoginContents {
 	position: absolute;
 	top: 2%;
-	 right: 25%; 
+	right: 13%; 
 }
 
 .LoginButton {
@@ -132,12 +132,12 @@ hr {
 }
 
 .Sort {
-	padding-left: 315px;
+	padding-left: 25%;
 	float: left;
 }
 
 .Filter {
-	padding-right: 275px;
+	padding-right: 25%;
 }
 
 .Playlist {
