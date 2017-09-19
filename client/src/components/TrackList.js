@@ -74,6 +74,7 @@ class TrackList extends Component {
 						</label>
 					</form>
 				</div>
+				<br />
 				{this.state.playlist.map((track, index) =>
 					<Track key={index} data={track} commonTracks={this.props.commonTracks} filter={this.state.filter} />
 				)}
