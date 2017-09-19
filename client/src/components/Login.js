@@ -1,5 +1,4 @@
 import React from 'react';
-import LoginButton from '../login.svg';
 
 function Login(props) {
 	return (
@@ -7,7 +6,8 @@ function Login(props) {
 			{(props.error !== "") &&
 				<h2>An error occurred. Please try again.</h2>
 			}
-			<a href="/login"><img src={LoginButton} alt="Log in to Spotify" height="150px" width="400px"/></a>
+			<br />
+			<a href="/login"><button className="LoginButton"><b>Login With Spotify</b></button></a>
 		</div>
 	);
 }

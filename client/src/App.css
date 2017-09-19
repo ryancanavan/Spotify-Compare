@@ -68,6 +68,14 @@ hr {
 	vertical-align: -40px;
 }
 
+.LoginButton {
+	height: 75px;
+	width: 400px;
+	border-radius: 50px;
+	font-size: 28px;
+
+}
+
 .CompareButton {
 	border-radius: 50px;
 	margin-bottom: 20px;
