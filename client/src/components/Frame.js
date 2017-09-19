@@ -19,9 +19,11 @@ class Frame extends Component {
 	}
 
 	componentWillReceiveProps(nextProps) {
-		this.setState({
-			playlists: nextProps.playlists
-		})
+		if(!this.state.foreignPlaylist) {
+			this.setState({
+				playlists: nextProps.playlists
+			})
+		}
 	}
 
 	playlistSelect(tracksUrl, playlistName, offset) {

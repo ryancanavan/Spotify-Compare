@@ -68,7 +68,7 @@ class Welcome extends Component {
     }
 
     comparePlaylists() {
-        if(this.state.leftTracks.length === 0 || this.state.rightTracks === 0){
+        if(this.state.leftTracks.length === 0 || this.state.rightTracks.length === 0){
             this.setState({
                 info: "Please select two playlists to compare."
             });
@@ -91,6 +91,7 @@ class Welcome extends Component {
 	render() {
 		return (
 			<div className="Welcome">
+                <br />
                 <button className="CompareButton" onClick={() => this.comparePlaylists()}><b>Compare Playlists</b></button>
                 {(this.state.info) && <h3>{this.state.info}</h3>}
                 <Frame side="Left" playlists={this.state.playlists} params={this.props.params} playlistSelect={this.leftPlaylistSelect} resetPlaylistSelect={this.leftPlaylistReset} commonTracks={this.state.commonTracks} />
